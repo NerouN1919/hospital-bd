@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="bd.hospital.HospitalMapper">
+    <resultMap id="wardQuery" type="bd.hospital.dto.WardDto">
+        <id column="ward_id" property="id" />
+        <result column="fill_count" property="fillCount"/>
+        <result column="max_count" property="maxCount"/>
+        <result column="ward_name" property="wardName"/>
+    </resultMap>
+
+    <select id="getWardPageData" statementType="CALLABLE" parameterType="java.util.Map" resultMap="wardQuery">
+        SELECT * FROM get_page_data(
+            #{page_size, mode=IN, jdbcType=BIGINT},
+            #{page_number, mode=IN, jdbcType=BIGINT}
+            )
+    </select>
+
+    <resultMap id="peopleQuery" type="bd.hospital.dto.PeopleDto">
+        <id column="person_id" property="id" />
+        <result column="first_name" property="firstName"/>
+        <result column="last_name" property="lastName"/>
+        <result column="pather_name" property="patherName"/>
+        <result column="diagnosis_name" property="diagnosisName"/>
+    </resultMap>
+
+    <select id="getPeopleByWardId" statementType="CALLABLE" parameterType="java.util.Map" resultMap="peopleQuery">
+        SELECT * FROM get_people_in_ward(
+                #{ward_id_param, mode=IN, jdbcType=BIGINT}
+            )
+    </select>
+
+    <select id="calculateWardsPagesCount" statementType="CALLABLE" parameterType="java.util.Map">
+        CALL calculate_pages_count(
+            #{pages_count, mode=INOUT, jdbcType=INTEGER},
+            #{page_size, mode=IN, jdbcType=INTEGER}
+        )
+    </select>
+
+    <resultMap id="wardsAddResult" type="bd.hospital.dto.AddPersonToWardDto">
+        <result column="result_code" property="resultCode"/>
+        <result column="result_message" property="resultMessage"/>
+    </resultMap>
+
+    <select id="addPersonToWard" statementType="CALLABLE" parameterType="java.util.Map" resultMap="wardsAddResult">
+        SELECT * FROM add_person_to_ward(
+            #{first_name, mode=IN, jdbcType=VARCHAR},
+            #{last_name, mode=IN, jdbcType=VARCHAR},
+            #{pather_name, mode=IN, jdbcType=VARCHAR},
+            #{diagnosis_name, mode=IN, jdbcType=VARCHAR},
+            #{ward_id, mode=IN, jdbcType=BIGINT}
+        )
+    </select>
+
+    <select id="createWard" statementType="CALLABLE" parameterType="java.util.Map">
+        CALL create_ward(
+            #{p_ward_name, mode=IN, jdbcType=VARCHAR},
+            #{p_max_count, mode=IN, jdbcType=BIGINT},
+            #{result_type, mode=INOUT, jdbcType=INTEGER},
+            #{result_message, mode=INOUT, jdbcType=VARCHAR}
+            )
+    </select>
+
+    <select id="updateWard" statementType="CALLABLE" parameterType="java.util.Map">
+        CALL update_ward(
+            #{ward_id, mode=IN, jdbcType=BIGINT},
+            #{ward_name, mode=IN, jdbcType=VARCHAR},
+            #{ward_max_count, mode=IN, jdbcType=BIGINT},
+            #{result_code, mode=INOUT, jdbcType=INTEGER},
+            #{result_message, mode=INOUT, jdbcType=VARCHAR}
+            )
+    </select>
+
+    <select id="updatePerson" statementType="CALLABLE" parameterType="java.util.Map">
+        CALL update_person(
+            #{person_id, mode=IN, jdbcType=BIGINT},
+            #{first_name, mode=IN, jdbcType=VARCHAR},
+            #{last_name, mode=IN, jdbcType=VARCHAR},
+            #{pather_name, mode=IN, jdbcType=VARCHAR},
+            #{diagnosis_name, mode=IN, jdbcType=VARCHAR}
+            )
+    </select>
+
+    <select id="deletePerson" statementType="CALLABLE" parameterType="java.util.Map">
+        CALL delete_person(
+            #{person_id, mode=IN, jdbcType=BIGINT}
+            )
+    </select>
+
+    <select id="deleteWard" statementType="CALLABLE" parameterType="java.util.Map">
+        CALL delete_ward(
+            #{ward_id, mode=IN, jdbcType=BIGINT}
+            )
+    </select>
+
+    <select id="getAllDiagnoses" statementType="CALLABLE" resultMap="diagnosis">
+        SELECT * FROM get_all_diagnoses()
+    </select>
+
+    <resultMap id="diagnosis" type="bd.hospital.dto.DiagnosDto">
+        <result column="name_diagnos" property="name"/>
+    </resultMap>
+
+    <select id="createDiagnosis" statementType="CALLABLE" parameterType="java.util.Map">
+        CALL create_diagnosis(
+            #{diagnosis_name, mode=IN, jdbcType=VARCHAR},
+            #{result_code, mode=INOUT, jdbcType=BIGINT},
+            #{result_message, mode=INOUT, jdbcType=VARCHAR}
+            )
+    </select>
+
+    <select id="getStatistic" statementType="CALLABLE" resultMap="statisticQuery">
+        SELECT * FROM get_ward_occupancy()
+    </select>
+
+    <resultMap id="statisticQuery" type="bd.hospital.dto.StatisticDto">
+        <result column="ward_name" property="wardName"/>
+        <result column="occupancy_rate" property="occupancyRate"/>
+    </resultMap>
+</mapper>
+

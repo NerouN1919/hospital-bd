@@ -1,0 +1,326 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" th:href="@{/bootstrap-5.0.2-dist/css/bootstrap.css}" type="text/css" />
+    <script type="text/javascript" th:src="@{/mainInfo.js}"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<form th:object="${addPersonAttribute}" class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">    <div th:if="${#fields.hasErrors()}" class="modal-dialog" role="document">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $(document).ready(function () {
+            var hasErrors = /*[[${#fields.hasErrors()}]]*/ false;
+
+            if (hasErrors) {
+                $('#errorModal').modal('show');
+            }
+        });
+        /*]]>*/
+    </script>
+        <div class="modal-content">
+            <div class="modal-header alert alert-danger">
+                <h5 class="modal-title" id="errorModalLabel">Ошибка</h5>
+            </div>
+            <div class="modal-body">
+                <p th:each="fieldError : ${#fields.errors('global')}" th:text="${fieldError}"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form th:object="${addWardAttribute}" class="modal fade" id="errorModal-2" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">    <div th:if="${#fields.hasErrors()}" class="modal-dialog" role="document">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $(document).ready(function () {
+            var hasErrors = /*[[${#fields.hasErrors()}]]*/ false;
+
+            if (hasErrors) {
+                $('#errorModal-2').modal('show');
+            }
+        });
+        /*]]>*/
+    </script>
+    <div class="modal-content">
+        <div class="modal-header alert alert-danger">
+            <h5 class="modal-title" id="errorModalLabel-2">Ошибка</h5>
+        </div>
+        <div class="modal-body">
+            <p th:each="fieldError : ${#fields.errors('global')}" th:text="${fieldError}"></p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+        </div>
+    </div>
+</div>
+</form>
+
+<form th:object="${updateWardAttribute}" class="modal fade" id="errorModal-3" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">    <div th:if="${#fields.hasErrors()}" class="modal-dialog" role="document">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $(document).ready(function () {
+            var hasErrors = /*[[${#fields.hasErrors()}]]*/ false;
+
+            if (hasErrors) {
+                $('#errorModal-3').modal('show');
+            }
+        });
+        /*]]>*/
+    </script>
+    <div class="modal-content">
+        <div class="modal-header alert alert-danger">
+            <h5 class="modal-title" id="errorModalLabel-3">Ошибка</h5>
+        </div>
+        <div class="modal-body">
+            <p th:each="fieldError : ${#fields.errors('global')}" th:text="${fieldError}"></p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+        </div>
+    </div>
+</div>
+</form>
+
+<form th:object="${updatePersonAttribute}" class="modal fade" id="errorModal-4" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">    <div th:if="${#fields.hasErrors()}" class="modal-dialog" role="document">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $(document).ready(function () {
+            var hasErrors = /*[[${#fields.hasErrors()}]]*/ false;
+
+            if (hasErrors) {
+                $('#errorModal-4').modal('show');
+            }
+        });
+        /*]]>*/
+    </script>
+    <div class="modal-content">
+        <div class="modal-header alert alert-danger">
+            <h5 class="modal-title" id="errorModalLabel-4">Ошибка</h5>
+        </div>
+        <div class="modal-body">
+            <p th:each="fieldError : ${#fields.errors('global')}" th:text="${fieldError}"></p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+        </div>
+    </div>
+</div>
+</form>
+
+<form th:object="${diagnosisAttribute}" class="modal fade" id="errorModal-5" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">    <div th:if="${#fields.hasErrors()}" class="modal-dialog" role="document">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $(document).ready(function () {
+            var hasErrors = /*[[${#fields.hasErrors()}]]*/ false;
+
+            if (hasErrors) {
+                $('#errorModal-5').modal('show');
+            }
+        });
+        /*]]>*/
+    </script>
+    <div class="modal-content">
+        <div class="modal-header alert alert-danger">
+            <h5 class="modal-title" id="errorModalLabel-5">Ошибка</h5>
+        </div>
+        <div class="modal-body">
+            <p th:each="fieldError : ${#fields.errors('global')}" th:text="${fieldError}"></p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+        </div>
+    </div>
+</div>
+</form>
+
+<div class="container-fluid main_container">
+    <div class="row h-100">
+        <div class="col-2 bg-dark position-fixed h-100 px-1">
+            <div class="align-content-center my-3">
+                <div class="text-center text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bag-heart-fill text-white mb-3" viewBox="0 0 16 16">
+                        <path d="M11.5 4v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5ZM8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1Zm0 6.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z"/>
+                    </svg>
+                    <span class="h1">Больница</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bag-heart-fill text-white mb-3" viewBox="0 0 16 16">
+                        <path d="M11.5 4v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5ZM8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1Zm0 6.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z"/>
+                    </svg>
+                </div>
+            </div>
+            <button class="fs-3 mb-2 align-content-center btn btn-outline-secondary w-100" style="margin-top: 40%" disabled="disabled">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-table mb-1" viewBox="0 0 16 16">
+                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5-3v3h4V4H6zm4 4H6v3h4V8z"/>
+                </svg>
+                <span>Общие сведения</span>
+            </button>
+            <a th:href="@{/statistic}">
+                <button class="fs-3 my-2 align-content-center btn btn-secondary w-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-graph-up-arrow mb-1" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M0 0h1v15h15v1H0V0Zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5Z"/>
+                    </svg>
+                    <span>Статистика</span>
+                </button>
+            </a>
+        </div>
+        <div class="col-10 bg-light offset-2 p-0">
+            <div class="text-center bg-primary p-3 text-white">
+                <span class="h1">Общие сведения</span>
+            </div>
+            <div th:each="ward : ${wards}" class="pe-1">
+                <div th:id="${ward.id}">
+                    <button class="button btn-info row w-100 my-3 py-3 ms-1" th:onclick="'javascript:toggleMenu(this);'">
+                        <div class="col-4" th:text="'Палата: ' + ${ward.wardName}"></div>
+                        <div class="col-4" th:text="'Вместительность: ' + ${ward.maxCount}"></div>
+                        <div class="col-3" th:text="'Заполненность: ' + ${ward.fillCount}"></div>
+                        <div class="col-1 pb-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
+                            </svg>
+                        </div>
+                    </button>
+                    <div class="show-hide w-75 offset-1" style="display: none">
+                        <form method="post" th:action="@{/update-ward(wardId = ${ward.id}, page = ${currentPage})}" th:object = "${updateWardAttribute}" class="row">
+                            <div class="col-2">
+                                Изменить палату
+                            </div>
+                            <div class="col-4">
+                                <input th:field="*{wardName}" type="text" class="form-control" placeholder="Название">
+                            </div>
+                            <div class="col-4">
+                                <input th:field="*{maxCount}" type="text" class="form-control" placeholder="Вместимость">
+                            </div>
+                            <div class="col-1">
+                                <button type="submit" class="btn btn-primary">Изменить</button>
+                            </div>
+                            <div class="col-1">
+                                <a class="btn btn-danger" th:href="@{/delete-ward(wardId=${ward.id})}">
+                                    Уалить
+                                </a>
+                            </div>
+                        </form>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col">Имя</th>
+                                <th scope="col">Фамилия</th>
+                                <th scope="col">Отчество</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="person : ${ward.peoples}">
+                                    <form method="post" th:action="@{/update-person(personId = ${person.id}, page = ${currentPage})}" th:object="${updatePersonAttribute}">
+                                        <td>
+                                            <input class="form-control" th:placeholder="${person.firstName}" th:field="*{firstName}" type="text">
+                                        </td>
+                                        <td>
+                                            <input class="form-control" th:placeholder="${person.lastName}" th:field="*{lastName}"type="text">
+                                        </td>
+                                        <td>
+                                            <input class="form-control" th:placeholder="${person.patherName}" th:field="*{patherName}" type="text">
+                                        </td>
+                                        <td>
+                                            <input class="form-control" th:placeholder="${person.diagnosisName}" th:field="*{diagnosisName}" type="text">
+                                        </td>
+                                        <td>
+                                            <button type="submit" class="btn btn-primary">Изменить</button>
+                                        </td>
+                                        <td>
+                                            <a th:href="@{/delete-person(personId = ${person.id})}" class="btn btn-danger"> Удалить</a>
+                                        </td>
+                                    </form>
+                                </tr>
+                            </form>
+                            </tbody>
+                        </table>
+                        <form method="post" th:action="@{/add-person-to-ward(wardId = ${ward.id}, page = ${currentPage})}" th:object="${addPersonAttribute}" class="mx-1">
+                            <div class="row">
+                                <div class="col-3">
+                                    <input th:field="*{firstName}" type="text" class="form-control" placeholder="Имя">
+                                </div>
+                                <div class="col-3">
+                                    <input th:field="*{lastName}" type="text" class="form-control" placeholder="Фамилия">
+                                </div>
+                                <div class="col-2">
+                                    <input th:field="*{patherName}" type="text" class="form-control" placeholder="Отчество">
+                                </div>
+                                <div class="col-2">
+                                    <input th:field="*{diagnosisName}" type="text" class="form-control" placeholder="Диагноз">
+                                </div>
+                                <div class="col-2">
+                                    <button type="submit" class="btn btn-primary">Добавить больного</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <form method="post" th:action="@{/add-ward}" th:object="${addWardAttribute}" class="pe-1 m-2">
+                <div class="row">
+                    <div class="col-3">
+                        <input th:field="*{wardName}" type="text" class="form-control" placeholder="Название">
+                    </div>
+                    <div class="col-3">
+                        <input th:field="*{maxCount}" type="text" class="form-control" placeholder="Вместительность">
+                    </div>
+                    <div class="col-3">
+                        <button type="submit" class="btn btn-primary">Добавить палату</button>
+                    </div>
+                </div>
+            </form>
+            <div class="form-group m-2 row">
+                <div class="col">
+                    <label for="diagnoses">Доступные диагнозы</label>
+                    <select class="form-control" id="diagnoses">
+                        <option th:each="diagnos : ${allDiagnoses}" th:text="${diagnos.name}" disabled="disabled"></option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="add-diagnos">Добавить диагноз</label>
+                    <form id ="add-diagnos" method="post" th:action="@{/create-diagnosis(page=${currentPage})}" th:object="${diagnosisAttribute}" >
+                        <div class="row">
+                            <div class="col-3">
+                                <input th:field="*{diagnosisName}" type="text" class="form-control" placeholder="Название диагноза">
+                            </div>
+                            <div class="col-3">
+                                <button type="submit" class="btn btn-primary">Добавить</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div>
+                <ul class="pagination mx-1">
+                    <li class="page-item" th:if="${previousPage > 0}">
+                        <a class="page-link" th:href="@{/(page=${previousPage})}" tabindex="-1">Previous</a>
+                    </li>
+                    <li class="page-item disabled" th:if="${previousPage <= 0}">
+                        <a class="page-link" tabindex="-1" >Previous</a>
+                    </li>
+                    <li class="page-item" th:if="${previousPage > 0}">
+                        <a class="page-link" th:href="@{/(page=${previousPage})}" th:text="${previousPage}"></a>
+                    </li>
+                    <li class="page-item active">
+                        <a class="page-link" th:href="@{/(page=${currentPage})}" th:text="${currentPage}"> <span class="sr-only">(Текущая)</span></a>
+                    </li>
+                    <li class="page-item" th:if="${nextPage <= wardPagesCount}">
+                        <a class="page-link" th:href="@{/(page=${nextPage})}" th:text="${nextPage}"></a>
+                    </li>
+                    <li class="page-item" th:if="${nextPage <= wardPagesCount}">
+                        <a class="page-link" th:href="@{/(page=${nextPage})}">Next</a>
+                    </li>
+                    <li class="page-item disabled" th:if="${nextPage > wardPagesCount}">
+                        <a class="page-link">Next</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
