@@ -18,7 +18,7 @@ public class WebSecurityConfig {
         http
                 .authorizeHttpRequests((authorize) -> {
                     authorize
-                            .requestMatchers("/statistic").hasRole("ADMIN")
+                            .requestMatchers("/statistic", "/summary").hasRole("ADMIN")
                             .anyRequest().authenticated();
                 })
                 .formLogin((form) -> form

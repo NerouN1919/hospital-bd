@@ -2,12 +2,14 @@ package bd.hospital.services;
 
 import bd.hospital.attributes.*;
 import bd.hospital.dto.*;
+import bd.hospital.exporter.ExcelExporter;
 import bd.hospital.repositories.HospitalRepository;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,5 +89,15 @@ public class HospitalServiceImpl implements HospitalService {
     @Override
     public CreateDiagnosisDto createDiagnosis(DiagnosisAttribute diagnosisAttribute) {
         return hospitalRepository.createDiagnosis(diagnosisAttribute.getDiagnosisName());
+    }
+
+    @Override
+    public byte[] getSummaryExcel() {
+        List<SummaryDto> summaryList = hospitalRepository.getSummary();
+        try {
+            return new ExcelExporter().exportToExcel(summaryList);
+        } catch (IOException e) {
+            return new byte[0];
+        }
     }
 }

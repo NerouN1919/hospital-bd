@@ -127,5 +127,19 @@
             #{_rolename, mode=INOUT, jdbcType=VARCHAR}
             )
     </select>
+
+    <select id="getSummary" statementType="CALLABLE" resultMap="summary">
+        SELECT * FROM get_summary()
+    </select>
+
+    <resultMap id="summary" type="bd.hospital.dto.SummaryDto">
+        <result column="id" property="id"/>
+        <result column="first_name" property="firstName"/>
+        <result column="last_name" property="lastName"/>
+        <result column="pather_name" property="patherName"/>
+        <result column="diagnosis_name" property="diagnosisName"/>
+        <result column="ward_name" property="wardName"/>
+        <result column="max_count" property="maxCount"/>
+    </resultMap>
 </mapper>
 

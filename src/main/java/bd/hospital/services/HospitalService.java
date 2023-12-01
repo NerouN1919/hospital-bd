@@ -17,4 +17,5 @@ public interface HospitalService {
     List<DiagnosDto> getAllDiagnoses();
     List<StatisticDto> getStatistic();
     CreateDiagnosisDto createDiagnosis(DiagnosisAttribute diagnosisAttribute);
+    byte[] getSummaryExcel();
 }

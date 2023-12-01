@@ -7,6 +7,7 @@ import bd.hospital.dto.CreateDiagnosisDto;
 import bd.hospital.dto.UpdateWardDto;
 import bd.hospital.services.HospitalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -180,5 +181,14 @@ public class HospitalController {
     public String getStatistic(Model model) {
         model.addAttribute("statistics", hospitalService.getStatistic());
         return "statistic";
+    }
+
+    @GetMapping("/summary")
+    public ResponseEntity<byte[]> exportToExcel() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        headers.setContentDisposition(ContentDisposition.builder("attachment").filename("summary.xlsx").build());
+        byte[] data = hospitalService.getSummaryExcel();
+        return new ResponseEntity<>(data, headers, HttpStatus.OK);
     }
 }

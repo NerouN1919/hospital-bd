@@ -23,5 +23,6 @@ public interface Mapper {
     List<StatisticDto> getStatistic();
     void createDiagnosis(Map<String, Object> request);
     void getUser(Map<String, Object> request);
+    List<SummaryDto> getSummary();
 }
 

@@ -150,4 +150,9 @@ public class HospitalRepositoryImpl implements HospitalRepository {
         mapper.getUser(request);
         return new UserDto(userName, (String) request.get("_password"), (String) request.get("_rolename"));
     }
+
+    @Override
+    public List<SummaryDto> getSummary() {
+        return mapper.getSummary();
+    }
 }
