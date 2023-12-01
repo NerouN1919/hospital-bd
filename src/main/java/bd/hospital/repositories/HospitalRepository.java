@@ -21,4 +21,5 @@ public interface HospitalRepository {
     List<DiagnosDto> getAllDiagnoses();
     List<StatisticDto> getStatistic();
     CreateDiagnosisDto createDiagnosis(String diagnosisName);
+    UserDto getUser(String userName);
 }

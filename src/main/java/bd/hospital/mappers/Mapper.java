@@ -1,4 +1,4 @@
-package bd.hospital;
+package bd.hospital.mappers;
 
 import bd.hospital.dto.*;
 import org.apache.ibatis.annotations.CacheNamespace;
@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 @CacheNamespace(implementation = PerpetualCache.class)
-public interface HospitalMapper {
+@org.apache.ibatis.annotations.Mapper
+public interface Mapper {
     List<WardDto> getWardPageData(Map<String, Object> request);
     List<PeopleDto> getPeopleByWardId(Map<String, Object> request);
     void calculateWardsPagesCount(Map<String, Object> request);
@@ -21,7 +22,6 @@ public interface HospitalMapper {
     List<DiagnosDto> getAllDiagnoses();
     List<StatisticDto> getStatistic();
     void createDiagnosis(Map<String, Object> request);
-
-
+    void getUser(Map<String, Object> request);
 }
 

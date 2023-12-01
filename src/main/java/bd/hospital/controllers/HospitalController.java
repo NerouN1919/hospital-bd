@@ -7,6 +7,8 @@ import bd.hospital.dto.CreateDiagnosisDto;
 import bd.hospital.dto.UpdateWardDto;
 import bd.hospital.services.HospitalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,10 +26,15 @@ public class HospitalController {
         this.hospitalService = hospitalService;
     }
 
+    private Authentication getAuth() {
+        return SecurityContextHolder.getContext().getAuthentication();
+    }
+
     @GetMapping()
     public String firstPage(@RequestParam("page") int page, Model model) {
         int wardPagesCount = hospitalService.getWardPagesCount(PAGE_SIZE);
-        if (page <= 0 || page > wardPagesCount) {
+
+        if ((page <= 0 || page > wardPagesCount) && wardPagesCount != 0) {
             return "redirect:?page=1";
         }
         model.addAttribute("wards", hospitalService.getWardPageInfo(PAGE_SIZE, page));
@@ -51,7 +58,17 @@ public class HospitalController {
             model.addAttribute("diagnosisAttribute", new DiagnosisAttribute());
         }
         model.addAttribute("allDiagnoses", hospitalService.getAllDiagnoses());
-        return "main-info";
+
+        boolean hasUserRole = getAuth().getAuthorities().stream()
+                .anyMatch(r -> r.getAuthority().equals("ROLE_USER"));
+        boolean hasAdminRole = getAuth().getAuthorities().stream()
+                .anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
+        if (hasAdminRole) {
+            return "main-info-admin";
+        } else if (hasUserRole) {
+            return "main-info-user";
+        }
+        return "";
     }
 
     @PostMapping("add-person-to-ward")

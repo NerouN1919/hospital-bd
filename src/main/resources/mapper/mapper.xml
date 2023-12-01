@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="bd.hospital.HospitalMapper">
+<mapper namespace="bd.hospital.mappers.Mapper">
     <resultMap id="wardQuery" type="bd.hospital.dto.WardDto">
         <id column="ward_id" property="id" />
         <result column="fill_count" property="fillCount"/>
@@ -119,5 +119,13 @@
         <result column="ward_name" property="wardName"/>
         <result column="occupancy_rate" property="occupancyRate"/>
     </resultMap>
+
+    <select id="getUser" statementType="CALLABLE" parameterType="java.util.Map">
+        CALL get_user(
+            #{_username, mode=IN, jdbcType=VARCHAR},
+            #{_password, mode=INOUT, jdbcType=VARCHAR},
+            #{_rolename, mode=INOUT, jdbcType=VARCHAR}
+            )
+    </select>
 </mapper>
 

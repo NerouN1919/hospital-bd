@@ -1,7 +1,6 @@
 package bd.hospital.repositories;
 
-import bd.hospital.HospitalMapper;
-import bd.hospital.attributes.AddWardAttribute;
+import bd.hospital.mappers.Mapper;
 import bd.hospital.attributes.UpdatePersonAttribute;
 import bd.hospital.attributes.UpdateWardAttribute;
 import bd.hospital.dto.*;
@@ -20,12 +19,12 @@ import java.util.Map;
 public class HospitalRepositoryImpl implements HospitalRepository {
     private SqlSessionFactory sqlSessionFactory;
     private SqlSession sqlSession;
-    private HospitalMapper hospitalMapper;
+    private Mapper mapper;
 
     @PostConstruct
     private void openSessionAndInitializeMapper() {
         this.sqlSession = sqlSessionFactory.openSession(true);
-        this.hospitalMapper = sqlSession.getMapper(HospitalMapper.class);
+        this.mapper = sqlSession.getMapper(Mapper.class);
     }
 
     @PreDestroy
@@ -44,21 +43,21 @@ public class HospitalRepositoryImpl implements HospitalRepository {
         Map<String, Object> map = new HashMap<>();
         map.put("page_size", pageSize);
         map.put("page_number", pageCount);
-        return hospitalMapper.getWardPageData(map);
+        return mapper.getWardPageData(map);
     }
 
     @Override
     public List<PeopleDto> getPeopleByWardId(long wardId) {
         Map<String, Object> map = new HashMap<>();
         map.put("ward_id_param", wardId);
-        return hospitalMapper.getPeopleByWardId(map);
+        return mapper.getPeopleByWardId(map);
     }
 
     @Override
     public int getWardsPagesCountBySize(int pageSize) {
         Map<String, Object> request = new HashMap<>();
         request.put("page_size", pageSize);
-        hospitalMapper.calculateWardsPagesCount(request);
+        mapper.calculateWardsPagesCount(request);
         return (Integer) request.get("pages_count");
     }
 
@@ -71,7 +70,7 @@ public class HospitalRepositoryImpl implements HospitalRepository {
         request.put("pather_name", patherName);
         request.put("ward_id", wardId);
         request.put("diagnosis_name", diagnosisName);
-        AddPersonToWardDto result = hospitalMapper.addPersonToWard(request);
+        AddPersonToWardDto result = mapper.addPersonToWard(request);
         sqlSession.commit(true);
         return result;
     }
@@ -81,7 +80,7 @@ public class HospitalRepositoryImpl implements HospitalRepository {
         Map<String, Object> request = new HashMap<>();
         request.put("p_ward_name", wardName);
         request.put("p_max_count", maxCount);
-        hospitalMapper.createWard(request);
+        mapper.createWard(request);
         sqlSession.commit(true);
         return new AddWardDto((Integer) request.get("result_type"), (String) request.get("result_message"));
     }
@@ -92,7 +91,7 @@ public class HospitalRepositoryImpl implements HospitalRepository {
         request.put("ward_id", updateWardAttribute.getWardId());
         request.put("ward_name", updateWardAttribute.getWardName());
         request.put("ward_max_count", updateWardAttribute.getMaxCount());
-        hospitalMapper.updateWard(request);
+        mapper.updateWard(request);
         sqlSession.commit();
         return new UpdateWardDto((Integer) request.get("result_code"), (String) request.get("result_message"));
     }
@@ -105,7 +104,7 @@ public class HospitalRepositoryImpl implements HospitalRepository {
         request.put("last_name", updatePersonAttribute.getLastName());
         request.put("pather_name", updatePersonAttribute.getPatherName());
         request.put("diagnosis_name", updatePersonAttribute.getDiagnosisName());
-        hospitalMapper.updatePerson(request);
+        mapper.updatePerson(request);
         sqlSession.commit();
     }
 
@@ -113,7 +112,7 @@ public class HospitalRepositoryImpl implements HospitalRepository {
     public void deletePerson(Long personId) {
         Map<String, Object> request = new HashMap<>();
         request.put("person_id", personId);
-        hospitalMapper.deletePerson(request);
+        mapper.deletePerson(request);
         sqlSession.commit();
     }
 
@@ -121,26 +120,34 @@ public class HospitalRepositoryImpl implements HospitalRepository {
     public void deleteWard(Long wardId) {
         Map<String, Object> request = new HashMap<>();
         request.put("ward_id", wardId);
-        hospitalMapper.deleteWard(request);
+        mapper.deleteWard(request);
         sqlSession.commit();
     }
 
     @Override
     public List<DiagnosDto> getAllDiagnoses() {
-        return hospitalMapper.getAllDiagnoses();
+        return mapper.getAllDiagnoses();
     }
 
     @Override
     public List<StatisticDto> getStatistic() {
-        return hospitalMapper.getStatistic();
+        return mapper.getStatistic();
     }
 
     @Override
     public CreateDiagnosisDto createDiagnosis(String diagnosisName) {
         Map<String, Object> request = new HashMap<>();
         request.put("diagnosis_name", diagnosisName);
-        hospitalMapper.createDiagnosis(request);
+        mapper.createDiagnosis(request);
         sqlSession.commit();
         return new CreateDiagnosisDto((Long) request.get("result_code"), (String) request.get("result_message"));
+    }
+
+    @Override
+    public UserDto getUser(String userName) {
+        Map<String, Object> request = new HashMap<>();
+        request.put("_username", userName);
+        mapper.getUser(request);
+        return new UserDto(userName, (String) request.get("_password"), (String) request.get("_rolename"));
     }
 }
