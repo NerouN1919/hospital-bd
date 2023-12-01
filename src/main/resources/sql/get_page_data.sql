@@ -8,10 +8,8 @@ RETURNS TABLE (
 DECLARE
     offset_val INT;
 BEGIN
-    -- Вычисляем смещение для определенной страницы
     offset_val := (page_number - 1) * page_size;
 
-    -- Используем оконные функции для нумерации строк и выборки необходимых данных
     RETURN QUERY
     WITH ranked_people AS (
         SELECT

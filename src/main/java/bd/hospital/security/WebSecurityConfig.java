@@ -19,7 +19,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests((authorize) -> {
                     authorize
                             .requestMatchers("/statistic").hasRole("ADMIN")
-                            .anyRequest().authenticated().anyRequest();
+                            .anyRequest().authenticated();
                 })
                 .formLogin((form) -> form
                         .defaultSuccessUrl("/?page=1", true)
